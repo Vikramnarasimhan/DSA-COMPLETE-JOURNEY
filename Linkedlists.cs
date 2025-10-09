@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+//only minute difference between circular linked list and normal linked list is that the tail instead of pointing to null points to head
 //class LinkedList {
 public class Linked
 {
@@ -30,6 +31,7 @@ public class Linked
         if (head == null)
         {
             head = newnode;
+            head.next = head;
 
         }
         else
@@ -42,10 +44,45 @@ public class Linked
 
             }
             current.next = newnode;
+          //  newnode.next = head;
         }
 
 
     }
+    public void delete(int data) { 
+    if(head==null){
+        Console.WriteLine("The linked list is empty nothing is there to delete");
+
+        
+        }
+        if (head.Data == data)
+        {
+            head = head.next;
+
+
+        }
+        else
+        {
+            Node current = head;
+            while (current.next != null && current.next.Data != data)
+            {
+                current = current.next;
+
+            }
+            if (current.next == null)
+            {
+
+                Console.WriteLine("The node to be deleted does not exist");
+            }
+            else
+            {
+
+                current.next = current.next.next;
+            }
+        }
+    
+    }
+
     public void printlinkedlist() {
         Node current = head;
         while (current != null) {
@@ -63,6 +100,7 @@ public class Linked
 
 
 
+
        static void Main(string[] args)
         {
             Linked list = new Linked();
@@ -70,7 +108,13 @@ public class Linked
             list.adddata(20);
             list.adddata(30);
             list.printlinkedlist(); // Output: 10 -> 20 -> 30 -> null
-        }
+            list.delete(20);
+            list.printlinkedlist();
+            list.adddata(20);
+            list.printlinkedlist();
+            list.delete(10);
+            list.printlinkedlist();
+    }
 
 
 }
